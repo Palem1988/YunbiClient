@@ -8,33 +8,8 @@ import {
   View
 } from 'react-native';
 
-var REQUEST_URL = 'https://yunbi.com:443//api/v2/tickers/ethcny.json';
 var BiDetail = React.createClass({
     componentDidMount() {    
-        setInterval(() => {
-            this.fetchData()
-        }, 5000);
-    },
-    
-    fetchData(){
-        fetch(REQUEST_URL)
-        .then((response) => response.json())
-        .then((responseData) => {
-            console.log(responseData);
-                
-            let date = new Date(responseData.at*1000);
-    
-            let year = date.getFullYear();
-            let month = date.getMonth()+1; 
-            let date1 = date.getDate(); 
-            let hour = date.getHours(); 
-            let minutes = date.getMinutes(); 
-            let second = date.getSeconds();
-            let timeString = year + '年' + month + '月' + date1 + '日' + hour + '时' + minutes + '分' + second + '秒';
-            
-            console.log(timeString);
-        })
-        .done();                
     },
     
     render:function () {
