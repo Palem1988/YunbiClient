@@ -8,11 +8,11 @@ import {
   View
 } from 'react-native';
 
-var BiDetail = React.createClass({
+export default class BiDetail extends React.Component{
     componentDidMount() {    
-    },
+    }
     
-    render:function () {
+    render() {
         return (
             <View style={styles.BiContainer}>
                 <View style={styles.biNameContainer}>
@@ -39,7 +39,7 @@ var BiDetail = React.createClass({
         );
     }
     
-});
+}
 
 const styles = StyleSheet.create({
     BiContainer:{
@@ -94,5 +94,3 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
 });
-
-module.exports = BiDetail;

@@ -1,4 +1,4 @@
-const bitList = (state = ['ethcny'], action) => {
+const bitList = (state = ['sccny', 'daocny'], action) => {
       return state
 }
 

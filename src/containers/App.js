@@ -12,16 +12,11 @@ import { createStore } from 'redux';
 import yunbiApp from '../reducers'
 import {updateBit} from '../action'
 
-var BiDetail = require('./BiDetail');
-
+import BiDetail from './BiDetail';
 
 let store = createStore(yunbiApp)
-console.log(store);
-console.log(store.getState());
-store.dispatch(updateBit('ethcny', {ticker:1}));
-console.log(store.getState());
 
-var REQUEST_URL = 'https://yunbi.com:443//api/v2/tickers/ethcny.json';
+var TICKER_BASEURL = 'https://yunbi.com//api/v2/tickers/';
 class App extends Component{
     constructor(props){
         super(props);
@@ -31,29 +26,29 @@ class App extends Component{
     componentDidMount() {
         setInterval(() => {
             this.fetchData()
-        }, 5000);
+        }, 20*1000);
     }
     
-    fetchData (){
-        fetch(REQUEST_URL)
-        .then((response) => response.json())
-        .then((responseData) => {
-            console.log(responseData);
-                
-            let date = new Date(responseData.at*1000);
-    
-            let year = date.getFullYear();
-            let month = date.getMonth()+1; 
-            let date1 = date.getDate(); 
-            let hour = date.getHours(); 
-            let minutes = date.getMinutes(); 
-            let second = date.getSeconds();
-            let timeString = year + '年' + month + '月' + date1 + '日' + hour + '时' + minutes + '分' + second + '秒';
-            store.dispatch(updateBit('ethcny', responseData.ticker));
-            console.log(timeString);
-            console.log(store.getState());
-        })
-        .done();                
+    async fetchData (){
+        let bitUrls = [];
+        for(let bit of store.getState().bitList){
+            bitUrls.push(TICKER_BASEURL + bit + '.json');
+        }
+        let promises = bitUrls.map((url) => fetch(url)
+            .then((response) => response.json())
+            .then((responseData) => {
+                return responseData;
+            })
+        );
+        
+        try{
+            let results = await Promise.all(promises);
+            for (let result of results) {
+                console.log(result);
+            }
+        }catch(err){
+            console.log(err);
+        }
     }
     
     render() {
