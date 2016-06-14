@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux'
-import bitList from './bitList'
-import bits from './bits'
+import market from './market'
 
 const yunbiApp = combineReducers({
-  bitList,
-  bits
+  market,
 })
 
 export default yunbiApp
