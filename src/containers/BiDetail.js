@@ -8,7 +8,12 @@ import {
   View
 } from 'react-native';
 
-export default class BiDetail extends React.Component{
+export default class BiDetail extends Component{
+    constructor(props) {
+        super(props)
+        console.log(props)
+    }
+    
     componentDidMount() {    
     }
     
@@ -48,35 +53,35 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     biNameContainer:{
-        width: 370,
+        width: 296,
         height: 160,
         flex: 2,
-        marginLeft: 30,
-        marginRight: 20,
+        marginLeft: 24,
+        marginRight: 16,
         /*backgroundColor : 'red',*/
         justifyContent: 'center',
     },
     biName:{
         color:'white',
-        fontSize: 60,
+        fontSize: 30,
     },
     priceContainer:{
-        width: 400,
+        width: 320,
         height: 160,        
         flex: 2,
-        marginRight: 60,
+        marginRight: 48,
         /*backgroundColor : 'green',*/
         alignItems: 'center',
         justifyContent: 'center',
     },
     biPrice: {
         color:'white',
-        fontSize: 40,
+        fontSize: 20,
     },
     volumeContainers:{
-        width: 200,
+        width: 160,
         height: 160,
-        flex : 1,
+        flex : 2,
         /*backgroundColor : 'blue',*/
         alignItems:'center',
         justifyContent: 'center',
@@ -87,10 +92,10 @@ const styles = StyleSheet.create({
     volumeText:{
         color:'#61666C',
         marginRight: 5,
-        fontSize: 20,
+        fontSize: 15,
     },
     volumeValue:{
         color:'white',
-        fontSize: 20,
+        fontSize: 15,
     },
 });

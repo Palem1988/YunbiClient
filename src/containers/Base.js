@@ -5,7 +5,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ListView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,7 +19,12 @@ import BiDetail from './BiDetail';
 class Base extends Component{
     constructor(props){
         super(props);
+        console.log('Base constructor')
         setInterval(this.updateMarket.bind(this), 30 * 1000);
+/*        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.state = {
+          ds
+        };*/
     }
     
     updateMarket(){
@@ -30,9 +36,18 @@ class Base extends Component{
     }
     
     render() {
+        const { marketDetail } = this.props;
+/*        let dsData = [];
+        Object.keys(marketDetail).map(detail =>{
+          dsData.concat(marketDetail[detail])
+        })
+        this.setState({
+          ds: this.state.ds.cloneWithRows(dsData)
+        });*/
+        //this.ds = this.ds.cloneWithRows(dsData);
         return (
             <View style={styles.container}>
-                <BiDetail/>
+              <BiDetail/>
             </View>
         );
     }
@@ -47,7 +62,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    market: state.market
+    marketDetail: state.market.detail
   }
 }
 
