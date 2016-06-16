@@ -11,33 +11,33 @@ import {
 export default class BiDetail extends Component{
     constructor(props) {
         super(props)
-        console.log(props)
     }
     
     componentDidMount() {    
     }
     
     render() {
+        const mName = this.props.market.slice(0, -3).toUpperCase()
         return (
             <View style={styles.BiContainer}>
                 <View style={styles.biNameContainer}>
-                    <Text style={styles.biName}>BTC</Text>
+                    <Text style={styles.biName}>{mName}</Text>
                 </View>
                 <View style={styles.priceContainer}>
-                    <Text style={styles.biPrice}>￥1788.025</Text>
+                    <Text style={styles.biPrice}>{this.props.last}</Text>
                 </View>
                 <View style={styles.volumeContainers}>
                     <View style={styles.volumeContainer}>
                         <Text style={styles.volumeText}>高</Text>
-                        <Text style={styles.volumeValue}>1899.33</Text>
+                        <Text style={styles.volumeValue}>{this.props.high}</Text>
                     </View>
                     <View style={styles.volumeContainer}>
                         <Text style={styles.volumeText}>低</Text>
-                        <Text style={styles.volumeValue}>1869.33</Text>
+                        <Text style={styles.volumeValue}>{this.props.low}</Text>
                     </View>
                     <View style={styles.volumeContainer}>
                         <Text style={styles.volumeText}>量</Text>
-                        <Text style={styles.volumeValue}>1899.33</Text>
+                        <Text style={styles.volumeValue}>{this.props.vol}</Text>
                     </View>
                 </View>                
             </View>

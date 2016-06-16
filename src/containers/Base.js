@@ -19,17 +19,14 @@ import BiDetail from './BiDetail';
 class Base extends Component{
     constructor(props){
         super(props);
-        console.log('Base constructor')
-        setInterval(this.updateMarket.bind(this), 30 * 1000);
-/*        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.state = {
-          ds
-        };*/
+        setInterval(this.updateMarket.bind(this), 20 * 1000);
+        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.ds = ds.cloneWithRows(['row 1', 'row 2'])
     }
     
     updateMarket(){
         const { actions } = this.props
-        actions.fetchMarketsDetail(['btccny', 'ethcny', 'daocny', 'sccny'])
+        actions.fetchMarketsDetail(['ethcny',  'sccny', 'daocny', 'btccny'])
     }
     componentDidMount() {
         this.updateMarket()
@@ -37,18 +34,19 @@ class Base extends Component{
     
     render() {
         const { marketDetail } = this.props;
-/*        let dsData = [];
+        let dsData = [];
         Object.keys(marketDetail).map(detail =>{
-          dsData.concat(marketDetail[detail])
+            dsData.push(marketDetail[detail])
         })
-        this.setState({
-          ds: this.state.ds.cloneWithRows(dsData)
-        });*/
-        //this.ds = this.ds.cloneWithRows(dsData);
+        this.ds = this.ds.cloneWithRows(dsData)
+        
         return (
-            <View style={styles.container}>
-              <BiDetail/>
-            </View>
+                <View style={styles.container}>
+                    <ListView
+                        dataSource={this.ds}
+                        renderRow={(rowData) => <BiDetail {...rowData}/>}
+                    />
+                </View>
         );
     }
 };
