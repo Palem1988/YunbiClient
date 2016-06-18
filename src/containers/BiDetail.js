@@ -18,13 +18,29 @@ export default class BiDetail extends Component{
     
     render() {
         const mName = this.props.market.slice(0, -3).toUpperCase()
+        let price = this.props.last;
+        let intLen = parseInt(price).toString().length
+        if(intLen < price.length)
+        {
+            price = parseFloat(price).toFixed(7 - intLen);
+        }
+        let strVol = parseInt(this.props.vol).toString()
+        if( strVol.length > 9)
+        {
+            strVol = strVol.slice(0, -9) + '亿'
+        }
+        else if(strVol.length > 5)
+        {
+            strVol = strVol.slice(0, -5) + '万'
+        }
+        let intLenVol = parseInt(this.props.vol).toString().length
         return (
             <View style={styles.BiContainer}>
                 <View style={styles.biNameContainer}>
                     <Text style={styles.biName}>{mName}</Text>
                 </View>
                 <View style={styles.priceContainer}>
-                    <Text style={styles.biPrice}>{this.props.last}</Text>
+                    <Text style={styles.biPrice}>￥{price}</Text>
                 </View>
                 <View style={styles.volumeContainers}>
                     <View style={styles.volumeContainer}>
@@ -37,7 +53,7 @@ export default class BiDetail extends Component{
                     </View>
                     <View style={styles.volumeContainer}>
                         <Text style={styles.volumeText}>量</Text>
-                        <Text style={styles.volumeValue}>{this.props.vol}</Text>
+                        <Text style={styles.volumeValue}>{strVol}</Text>
                     </View>
                 </View>                
             </View>
@@ -53,10 +69,10 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     biNameContainer:{
-        width: 296,
-        height: 160,
+        width: 222,
+        height: 100,
         flex: 2,
-        marginLeft: 24,
+        marginLeft: 12,
         marginRight: 16,
         /*backgroundColor : 'red',*/
         justifyContent: 'center',
@@ -67,7 +83,7 @@ const styles = StyleSheet.create({
     },
     priceContainer:{
         width: 320,
-        height: 160,        
+        height: 100,        
         flex: 2,
         marginRight: 48,
         /*backgroundColor : 'green',*/
@@ -76,18 +92,19 @@ const styles = StyleSheet.create({
     },
     biPrice: {
         color:'white',
-        fontSize: 20,
+        fontSize: 18,
     },
     volumeContainers:{
         width: 160,
-        height: 160,
+        height: 100,
         flex : 2,
         /*backgroundColor : 'blue',*/
-        alignItems:'center',
+        alignItems:'flex-start',
         justifyContent: 'center',
     },
     volumeContainer:{
         flexDirection: 'row',
+        marginLeft: 10
     },
     volumeText:{
         color:'#61666C',
