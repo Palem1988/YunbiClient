@@ -2,11 +2,13 @@
 
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Navigator,
+  TouchableOpacity
 } from 'react-native';
+import Trade from './Trade'
 
 export default class BiDetail extends Component{
     constructor(props) {
@@ -14,6 +16,19 @@ export default class BiDetail extends Component{
     }
     
     componentDidMount() {    
+    }
+
+    _pressButton() {
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'Trade',
+                component: Trade,
+                params: {
+                    market: this.props.market
+                }
+            })
+        }
     }
     
     render() {
@@ -36,26 +51,28 @@ export default class BiDetail extends Component{
         let intLenVol = parseInt(this.props.vol).toString().length
         return (
             <View style={styles.BiContainer}>
-                <View style={styles.biNameContainer}>
-                    <Text style={styles.biName}>{mName}</Text>
-                </View>
-                <View style={styles.priceContainer}>
-                    <Text style={styles.biPrice}>￥{price}</Text>
-                </View>
-                <View style={styles.volumeContainers}>
-                    <View style={styles.volumeContainer}>
-                        <Text style={styles.volumeText}>高</Text>
-                        <Text style={styles.volumeValue}>{this.props.high}</Text>
+                <TouchableOpacity onPress={this._pressButton.bind(this)} style={styles.BiContainer}>
+                    <View style={styles.biNameContainer}>
+                        <Text style={styles.biName}>{mName}</Text>
                     </View>
-                    <View style={styles.volumeContainer}>
-                        <Text style={styles.volumeText}>低</Text>
-                        <Text style={styles.volumeValue}>{this.props.low}</Text>
+                    <View style={styles.priceContainer}>
+                        <Text style={styles.biPrice}>￥{price}</Text>
                     </View>
-                    <View style={styles.volumeContainer}>
-                        <Text style={styles.volumeText}>量</Text>
-                        <Text style={styles.volumeValue}>{strVol}</Text>
+                    <View style={styles.volumeContainers}>
+                        <View style={styles.volumeContainer}>
+                            <Text style={styles.volumeText}>高</Text>
+                            <Text style={styles.volumeValue}>{this.props.high}</Text>
+                        </View>
+                        <View style={styles.volumeContainer}>
+                            <Text style={styles.volumeText}>低</Text>
+                            <Text style={styles.volumeValue}>{this.props.low}</Text>
+                        </View>
+                        <View style={styles.volumeContainer}>
+                            <Text style={styles.volumeText}>量</Text>
+                            <Text style={styles.volumeValue}>{strVol}</Text>
+                        </View>
                     </View>
-                </View>                
+                </TouchableOpacity>
             </View>
         );
     }

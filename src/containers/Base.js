@@ -2,75 +2,34 @@
 
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
   View,
-  ListView
+  Navigator
 } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import yunbiApp from '../reducers'
-import * as actions from '../actions'
 
-import BiDetail from './BiDetail';
+import MarketList from './MarketList';
 
 
-class Base extends Component{
+export default class Base extends Component{
     constructor(props){
         super(props);
-        setInterval(this.updateMarket.bind(this), 20 * 1000);
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.ds = ds.cloneWithRows(['row 1', 'row 2'])
     }
     
-    updateMarket(){
-        const { actions } = this.props
-        actions.fetchMarketsDetail(['ethcny',  'sccny', 'daocny', 'btccny'])
-    }
     componentDidMount() {
-        this.updateMarket()
     }
     
     render() {
-        const { marketDetail } = this.props;
-        let dsData = [];
-        Object.keys(marketDetail).map(detail =>{
-            dsData.push(marketDetail[detail])
-        })
-        this.ds = this.ds.cloneWithRows(dsData)
-        
+        let defaultName = 'MarketList';
+        let defaultComponent = MarketList;
         return (
-                <View style={styles.container}>
-                    <ListView
-                        dataSource={this.ds}
-                        renderRow={(rowData) => <BiDetail {...rowData}/>}
-                    />
-                </View>
+            <Navigator
+              initialRoute={{ name: defaultName, component: defaultComponent }}
+              configureScene={(route) => {
+                return Navigator.SceneConfigs.VerticalDownSwipeJump;
+              }}
+              renderScene={(route, navigator) => {
+                let Component = route.component;
+                return <Component {...route.params} navigator={navigator} />
+              }} />
         );
     }
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1A1F25',
-  },
-});
-
-function mapStateToProps(state) {
-  return {
-    marketDetail: state.market.detail
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Base)
