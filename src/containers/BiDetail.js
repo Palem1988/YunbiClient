@@ -81,14 +81,15 @@ export default class BiDetail extends Component{
 
 const styles = StyleSheet.create({
     BiContainer:{
+        flex: 1,
         flexDirection: 'row',
         borderBottomColor: '#262B31',
         borderBottomWidth: 1,
     },
     biNameContainer:{
-        width: 222,
+        width: 88.8,
         height: 100,
-        flex: 2,
+        flex: 1,
         marginLeft: 12,
         marginRight: 16,
         /*backgroundColor : 'red',*/
@@ -99,10 +100,10 @@ const styles = StyleSheet.create({
         fontSize: 30,
     },
     priceContainer:{
-        width: 320,
+        width: 112,
         height: 100,        
         flex: 2,
-        marginRight: 48,
+        marginRight: 12,
         /*backgroundColor : 'green',*/
         alignItems: 'center',
         justifyContent: 'center',
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     volumeContainers:{
-        width: 160,
+        width: 100,
         height: 100,
         flex : 2,
         /*backgroundColor : 'blue',*/
