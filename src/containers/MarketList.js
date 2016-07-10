@@ -37,6 +37,7 @@ class MarketList extends Component{
         Object.keys(marketDetail).map(detail =>{
             dsData.push(marketDetail[detail])
         })
+        console.log(dsData)
         this.ds = this.ds.cloneWithRows(dsData)
         
         return (
