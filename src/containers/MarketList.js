@@ -37,12 +37,12 @@ class MarketList extends Component{
         Object.keys(marketDetail).map(detail =>{
             dsData.push(marketDetail[detail])
         })
-        console.log(dsData)
         this.ds = this.ds.cloneWithRows(dsData)
         
         return (
                 <View style={styles.container}>
                     <ListView
+                        enableEmptySections = {true}
                         dataSource={this.ds}
                         renderRow={(rowData) => <BiDetail {...rowData} navigator={navigator}/>}
                     />

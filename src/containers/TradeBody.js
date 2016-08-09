@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ListView
 } from 'react-native';
+import OrderBookItem from './OrderBookItem'
 
 export default class TradeBody extends Component{
     constructor(props){
@@ -31,13 +32,11 @@ export default class TradeBody extends Component{
         {
             asks = orders['asks'].reverse();
             bids = orders['bids'];
-        }
-        let dsDataAsk = asks;
-        let dsDataBid = bids;
-        console.log(dsDataAsk)
-        console.log(dsDataBid)
-        this.dsAsks = this.dsAsks.cloneWithRows(dsDataAsk);
-        this.dsBids = this.dsBids.cloneWithRows(dsDataBid);
+        }    
+        if(asks.length<=0 || bids.length<=0)
+            return null
+        this.dsAsks = this.dsAsks.cloneWithRows(asks);
+        this.dsBids = this.dsBids.cloneWithRows(bids);
         
         return (
             <View style={styles.Container}>
@@ -68,11 +67,16 @@ export default class TradeBody extends Component{
                 </View>
 
                 <View style={styles.orderBookContainer}>
-                    <Text>orderBookContainer</Text>
-                    //<ListView
-                    //    dataSource={this.ds}
-                    //    renderRow={(rowData) => <Text> {rowData['price']} </Text>}
-                    ///>                    
+                    <ListView
+                        enableEmptySections = {true}
+                        dataSource={this.dsAsks}
+                        renderRow={(rowData, sectionID, rowID) => <OrderBookItem  rowData={rowData} sectionID={sectionID} rowID={rowID} type='SELL'/>}
+                    />
+                    <ListView
+                        enableEmptySections = {true}
+                        dataSource={this.dsBids}
+                        renderRow={(rowData, sectionID, rowID) => <OrderBookItem  rowData={rowData} sectionID={sectionID} rowID={rowID} type='BUY'/>}
+                    />                    
                 </View>
             </View>
         );
