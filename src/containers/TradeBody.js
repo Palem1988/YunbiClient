@@ -67,12 +67,12 @@ export default class TradeBody extends Component{
                 </View>
 
                 <View style={styles.orderBookContainer}>
-                    <ListView
+                    <ListView contentContainerStyle={styles.orderBookView}
                         enableEmptySections = {true}
                         dataSource={this.dsAsks}
                         renderRow={(rowData, sectionID, rowID) => <OrderBookItem  rowData={rowData} sectionID={sectionID} rowID={rowID} type='SELL'/>}
                     />
-                    <ListView
+                    <ListView contentContainerStyle={styles.orderBookView}
                         enableEmptySections = {true}
                         dataSource={this.dsBids}
                         renderRow={(rowData, sectionID, rowID) => <OrderBookItem  rowData={rowData} sectionID={sectionID} rowID={rowID} type='BUY'/>}
@@ -100,8 +100,12 @@ const styles = StyleSheet.create({
     },
     orderBookContainer:{
         flex: 1,
-        backgroundColor:'#ffff00',
+        /*backgroundColor:'#ffff00',*/
         alignItems: 'center',
+        justifyContent:'center',
+    },
+    orderBookView :{
+        flex: 1,
         justifyContent:'center',
     },
     textinputContainer:{
@@ -110,7 +114,6 @@ const styles = StyleSheet.create({
         height : 30,
         marginTop : 5,
         marginBottom : 5,
-
     },
     amountContainer:{
         flexDirection: 'row',

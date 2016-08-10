@@ -29,6 +29,7 @@ export default class OrderBookItem extends Component{
                 <TouchableOpacity>
                     <Text style={styles.itemPrice}>{this.props.rowData['price']}</Text>
                 </TouchableOpacity>
+                <Text style={styles.itemVolume}>{this.props.rowData['volume']}</Text>
             </View>
         );
     }
@@ -39,14 +40,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     itemTag:{
-        marginLeft : 10,
-        marginRight : 30,
-        fontSize : 17
+        marginLeft : 5,
+        fontSize : 16,
     },
     itemPrice:{
-        marginLeft : 20,
-        marginRight : 50,
-        fontSize : 17,
+        marginLeft : 15,
+        marginRight : 15,
+        fontSize : 16,
         color : 'green'
-    },    
+    },
+    itemVolume:{
+        fontSize : 16,
+    }
 })
